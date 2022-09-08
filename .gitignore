@@ -39,6 +39,5 @@
 yarn-debug.log*
 .yarn-integrity
 
-
 /test
 /config/database.yml
