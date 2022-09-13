@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_12_033152) do
+ActiveRecord::Schema.define(version: 2022_09_13_095142) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2022_09_12_033152) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "remember_digest"
+    t.boolean "admin", default: false
   end
 
   create_table "word_answers", force: :cascade do |t|
