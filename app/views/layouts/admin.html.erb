@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>E Learning</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 
+                                           'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "Admin", admin_root_path, id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home", admin_root_path %></li>
+            <li><%= link_to "Users", admin_users_path %></li>
+            <li><%= link_to "Category", '#' %></li>
+            <li><%= link_to "Word List", '#' %></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= current_user.name %> <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <%# <li class="divider"></li> %>
+                <li>
+                  <%= link_to "Logout", logout_path, method: :delete  %>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      <%= yield %>
+    </div>
+    <div class="footer navbar-fixed-bottom">
+      <%= render 'layouts/footer' %>
+    </div>
+  </body>
+</html>

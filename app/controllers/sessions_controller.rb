@@ -7,19 +7,20 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       log_in user
       @current_user = user
+      flash[:success] = "Logged in successfully"
       if user.is_admin?
         redirect_to admin_root_url
       else
         redirect_to root_url
-      end  
+      end
     else
-      flash.now[:danger] = "Invalid email/password combination"
+      flash[:danger] = "Invalid email/password combination"
       render :new
     end
   end
-  
+
   def destroy
-    log_out if logged_in?
+    session.delete :user_id
     @current_user = nil
     redirect_to root_url
   end

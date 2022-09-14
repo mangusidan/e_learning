@@ -2,7 +2,7 @@ User.create!(name: "NVM",
   email: "nvm1301@email.com",
   password: "nvm1301",
   password_confirmation: "nvm1301",
-  admin: true
+  is_admin: true
 )
 
 99.times do |n|
