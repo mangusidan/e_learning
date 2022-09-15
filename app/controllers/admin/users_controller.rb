@@ -1,8 +1,8 @@
 class Admin::UsersController < Admin::BaseController
-  before_action :load_user, only: [:destroy]
+  before_action :load_user, only: :destroy
   
   def index
-    @users = User.order(:name).paginate page: params[:page]
+    @users = User.order(created_at: :desc).paginate page: params[:page]
   end
   
   def destroy
