@@ -1,0 +1,25 @@
+<%= provide :title, "Category List" %>
+<h2 class="center">Category List</h2>
+<div class="panel">
+  <%= link_to "Create Category", new_admin_category_path, class: "btn btn-primary" %>
+</div>
+<br>
+<%= will_paginate %>
+<ul class="list-group">
+  <% @categories.each do |category| %>
+    <li class="list-group-item">
+      <div class="pull-left" style="font-size:20px;">
+        <%= link_to category.name, admin_category_path(category) %>
+      </div>
+      <div>
+        <%= link_to "Add Word",'#', class: "btn btn-success" %>
+        <%= link_to "Edit", edit_admin_category_path(category),
+          class: "btn btn-primary" %>
+        <%= link_to "Delete", admin_category_path(category),
+          method: :delete, data: { confirm: "Deleted Category" },
+          class: "btn btn-danger" %>
+      </div>
+    </li>
+  <% end %>
+</ul>
+<%= will_paginate %>
