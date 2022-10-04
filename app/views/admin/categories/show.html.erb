@@ -1,4 +1,27 @@
 <h2><%= @category.name %></h2>
 <div class="panel panel-heading">
-  <%= link_to "Add word", '#', class: "btn btn-primary" %>
+  <%= link_to "Add word", new_admin_category_word_path(@category),
+    class: "btn btn-primary" %>
+</div>
+<div class="panel panel-body">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Words</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @category.words.each do |word| %>
+        <tr>
+          <td><%= word.content %></td>
+          <td>
+            <%= link_to "Edit", edit_admin_category_word_path(@category, word) %>
+            <%= link_to "Delete", [:admin, Category.find(word.category_id), word], 
+              method: :delete, data: { confirm: "Deleted successfully" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

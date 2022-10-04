@@ -12,7 +12,8 @@
         <%= link_to category.name, admin_category_path(category) %>
       </div>
       <div>
-        <%= link_to "Add Word",'#', class: "btn btn-success" %>
+        <%= link_to "Add Word", new_admin_category_word_path(category), 
+          class: "btn btn-success" %>
         <%= link_to "Edit", edit_admin_category_path(category),
           class: "btn btn-primary" %>
         <%= link_to "Delete", admin_category_path(category),

@@ -1,0 +1,36 @@
+<%= form_for [:admin, @category, @word] do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+  <%= f.hidden_field :category_id, value: @category.id %>
+  <%= f.label :content %>
+  <div class="field">
+    <%= f.text_field :content %>
+  </div>
+  <div class="field">
+    <%= f.label :word_answers, "Answers" %>
+  </div>
+  <div class="field">
+    <%= f.fields_for :word_answers do |f| %>
+      <%= render 'word_answer_fields', f: f %>
+    <% end %>
+    <%= link_to_add_fields "Add answers", f, :word_answers %>
+  </div>
+  <div class="center"><%= f.submit "Edit", class: "btn btn-primary" %></div>
+<% end %>
+
+<script>
+$('form').on('click', '.remove_fields', function(event) {
+  console.log('clicked')
+    $(this).prev('input[type=hidden]').val('1');
+    $(this).closest('fieldset').hide();
+    return event.preventDefault();
+});
+    
+$('form').on('click', '.add_fields', function(event) {
+  console.log('clicked!')
+    var regexp, time;
+    time = new Date().getTime();
+    regexp = new RegExp($(this).data('id'), 'g');
+    $(this).before($(this).data('fields').replace(regexp, time));
+    return event.preventDefault();
+});
+</script>

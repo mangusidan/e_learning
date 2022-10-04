@@ -1,4 +1,5 @@
 class Admin::WordsController < Admin::BaseController
+  before_action :load_category
   before_action :load_word, only: [:edit, :update, :destroy]
   
   def index
@@ -9,13 +10,52 @@ class Admin::WordsController < Admin::BaseController
      .order(:content)
      .paginate page: params[:page]
   end
-  
-  private  
-  def word_params
-    params.require(:word).permit :content  
+    
+  def new
+    @word = @category.words.new
+    @word.word_answers.new
   end
-  
+
+  def create
+    @word = @category.words.new word_params
+    if @word.save
+      flash[:success] = "Add word successfully"
+      redirect_to admin_category_url(@category)
+    else
+      flash[:danger] = "Failed"
+      render :new
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @word.update word_params
+      flash[:success] = "Updated successfully"
+      redirect_to admin_category_url(@category)
+    else
+      flash[:danger] = "Failed"
+      render :edit
+    end
+  end
+
+  def destroy
+    Word.find_by(id: params[:id]).destroy
+    redirect_to @category
+  end
+
+  private
+  def load_category
+    @category = Category.find_by id: params[:category_id]
+  end
+
+  def word_params
+    params.require(:word).permit :content,
+      word_answers_attributes: [:id, :content, :is_correct, :_destroy]
+  end
+
   def load_word
-    @word = Word.find_by id: params[:id]  
+    @word = Word.find_by id: params[:id]
   end
 end

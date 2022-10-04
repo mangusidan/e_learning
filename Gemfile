@@ -14,6 +14,7 @@ gem "sass-rails", ">= 6"
 gem "webpacker", "~> 5.0"
 gem "turbolinks", "~> 5"
 gem "jbuilder", "~> 2.7"
+gem "jquery-rails", "~> 4.3", ">= 4.3.5"
 gem "bootsnap", ">= 1.4.4", require: false
 
 group :development, :test do

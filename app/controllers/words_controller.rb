@@ -10,9 +10,4 @@ class WordsController < ApplicationController
       .order(:content)
       .paginate page: params[:page]
   end  
-
-  private
-  def words_params
-      params.require :search.permit :content
-  end 
 end
