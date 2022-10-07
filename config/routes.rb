@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :index, :edit, :update, :show]
   resources :categories, only: [:index, :show]
   resources :words, only: [:index]
+  resources :lessons, only: [:create, :show]
+
   namespace :admin do
     root "users#index"
     resources :users, only: [:index, :destroy, :show]

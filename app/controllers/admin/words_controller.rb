@@ -42,7 +42,7 @@ class Admin::WordsController < Admin::BaseController
 
   def destroy
     Word.find_by(id: params[:id]).destroy
-    redirect_to @category
+    redirect_to [:admin, @category]
   end
 
   private
