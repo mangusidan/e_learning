@@ -4,3 +4,5 @@ word_list:
   - "all_word"
 all_word: "all_word"
 word_size: 4
+per_page: 4
+activity_page: 10

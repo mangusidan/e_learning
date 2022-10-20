@@ -1,4 +1,6 @@
 class Lesson < ApplicationRecord
+  include ActivitiesHelper
+
   belongs_to :category
   belongs_to :user
   has_many :lesson_words  
@@ -9,6 +11,8 @@ class Lesson < ApplicationRecord
     reject_if: lambda {|attribute| attribute[:word_id].blank?}, allow_destroy: true
 
   before_create :random_words
+  after_create :create_activity_start_lesson
+  after_update :create_activity_finish_lesson
 
   private
   def random_words
@@ -17,5 +21,13 @@ class Lesson < ApplicationRecord
     else
       category.words.random
     end
+  end
+
+  def create_activity_start_lesson
+    create_activity self.user_id, self.id, :start_lesson
+  end
+
+  def create_activity_finish_lesson
+    create_activity self.user_id, self.id, :finish_lesson
   end
 end

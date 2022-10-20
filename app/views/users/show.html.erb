@@ -1,4 +1,4 @@
-<% provide :title, @user.name %>
+<%= provide :title, @user.name %>
 
 <div class="row">
   <aside class="col-md-4">
@@ -8,5 +8,46 @@
         <%= @user.name %>
       </h1>
     </section>
+    <section class="stats">
+      <%= render "shared/stats" %>
+    </section>
   </aside>
+  <div class="col-md-8">
+    <%= render "follow_form" if logged_in? %>
+  </div>
+  <div class="clearfix"></div>
+  <div class="col-md-6">
+    <br/>
+    <table>
+      <thead>
+        <th><%= "Lesson" %></th>
+        <th><%= "Category" %></th>
+        <th><%= "Status" %></th>
+        <th><%= "Score" %></th>
+      </thead>
+      <tbody>
+        <h2> Lessons </h2>
+        <% @user.lessons.each do |lesson| %>
+          <tr>
+            <td><%= link_to t("views.lesson",id: lesson.id),
+              lesson_path(lesson) %>
+              </td>
+            <td><%= lesson.category.name %></td>
+            <% if lesson.is_completed? %>
+              <td><%= "Finished" %></td>
+              <td><%= lesson.lesson_words.correct_answer.count %>
+                / <%= lesson.lesson_words.count %>
+              </td>
+            <% else %>
+              <td><%= "Doing" %></td>
+              <td>-</td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-6">
+    <%= render "activities" %>
+  </div>
 </div>

@@ -8,6 +8,6 @@ class WordsController < ApplicationController
       .search(params[:content])  
       .by_category(params[:by_category])
       .order(:content)
-      .paginate page: params[:page]
+      .paginate page: params[:page], per_page: Settings.per_page
   end  
 end

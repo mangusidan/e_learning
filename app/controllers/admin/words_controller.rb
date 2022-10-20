@@ -3,7 +3,7 @@ class Admin::WordsController < Admin::BaseController
   before_action :load_word, only: [:edit, :update, :destroy]
   
   def index
-    @categories = Category.all
+    @categories = Category.order(:name)
     word_type = params[:word_type] || Settings.all_word
     @words = Word.send(word_type, current_user)
      .by_category(params[:by_category])
@@ -41,8 +41,16 @@ class Admin::WordsController < Admin::BaseController
   end
 
   def destroy
-    Word.find_by(id: params[:id]).destroy
-    redirect_to [:admin, @category]
+    if @word.lesson_words.any?
+      flash[:danger] = "Failed"
+    else
+      if @word.destroy
+        flash[:success] = "Success"
+      else
+        flash[:danger] = "Failed"
+      end
+    end
+    redirect_to admin_category_url(@category)
   end
 
   private
@@ -58,4 +66,5 @@ class Admin::WordsController < Admin::BaseController
   def load_word
     @word = Word.find_by id: params[:id]
   end
+  
 end
